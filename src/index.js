@@ -1,17 +1,6 @@
-const express = require('express');
-require('./db/mongoose');
-const { ObjectID } = require('mongodb');
-const userRouter = require('./routers/user');
-const taskRouter = require('./routers/task');
+const app = require('./app');
 
-// Create express and port
-const app = express();
 const port = process.env.PORT;
-
-// Use json automatically by expressdd
-app.use(express.json());
-app.use(userRouter);
-app.use(taskRouter);
 
 app.listen(port, () => {
   console.log(`Server is up and running. ${port}`);

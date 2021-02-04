@@ -52,7 +52,7 @@ router.patch('/users/me', auth, async (req, res) => {
   const allowedUpdateCols = ['name', 'password', 'email', 'age'];
   const isValidOperation = updates.every((update) => allowedUpdateCols.includes(update));
   if (!isValidOperation) {
-    res.status(400).send({ error: 'Invalid update!' });
+    return res.status(400).send({ error: 'Invalid update!' });
   }
 
   try {
@@ -68,7 +68,7 @@ router.patch('/users/me', auth, async (req, res) => {
 // Delete User by DELETE request
 router.delete('/users/me', auth, async (req, res) => {
   try {
-    req.user.remove();
+    await req.user.remove();
     sendCancelEmail(req.user.name, req.user.email);
     res.send(req.user);
   } catch (e) {
